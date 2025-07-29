@@ -4,10 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import { Calculator, BookOpen, FileText, Building2, Receipt, Percent, Coins, Shield, AlertTriangle, CheckCircle } from "lucide-react";
 
 const TaxEducation = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
@@ -570,7 +572,7 @@ const TaxEducation = () => {
             size="lg" 
             className="bg-primary hover:bg-primary-glow text-primary-foreground"
             onClick={() => {
-              window.location.href = '/';
+              navigate('/');
             }}
           >
             Start Calculating Your Taxes

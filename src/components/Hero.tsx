@@ -1,8 +1,11 @@
 import { ArrowRight, Calculator, Shield, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/tax-hero.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Background with gradient overlay */}
@@ -49,6 +52,9 @@ const Hero = () => {
                   const calculatorsSection = document.getElementById('calculators');
                   if (calculatorsSection) {
                     calculatorsSection.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    // If calculators section doesn't exist, navigate to home
+                    navigate('/');
                   }
                 }}
               >
@@ -61,7 +67,7 @@ const Hero = () => {
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 onClick={() => {
                   // Navigate to the tax education page
-                  window.location.href = '/tax-education';
+                  navigate('/tax-education');
                 }}
               >
                 Learn About Taxes

@@ -8,8 +8,11 @@ import TaxSavingsCalculator from "@/components/TaxSavingsCalculator";
 import TaxRatesLookup from "@/components/TaxRatesLookup";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -227,7 +230,7 @@ const Index = () => {
               variant="outline"
               className="ml-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               onClick={() => {
-                window.location.href = '/tax-education';
+                navigate('/tax-education');
               }}
             >
               Learn More About Taxes
