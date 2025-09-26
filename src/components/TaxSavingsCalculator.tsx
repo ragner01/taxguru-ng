@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,9 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { PiggyBank, TrendingDown, Calculator, Lightbulb, Target } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { NEW_PIT_BRACKETS, OLD_PIT_BRACKETS, calculateProgressiveTax, formatCurrency } from '@/lib/tax';
+import { downloadTaxSummaryPdf } from '@/lib/pdf';
 
 const TaxSavingsCalculator = () => {
   const [currentIncome, setCurrentIncome] = useState('');
@@ -13,26 +16,11 @@ const TaxSavingsCalculator = () => {
   const [nhfContribution, setNhfContribution] = useState('');
   const [nhisContribution, setNhisContribution] = useState('');
   const [lifeInsurance, setLifeInsurance] = useState('');
+  const [taxYear, setTaxYear] = useState<'old' | 'new'>('new');
 
   const calculateTax = (taxableIncome: number) => {
-    let tax = 0;
-    const brackets = [
-      { min: 0, max: 300000, rate: 0.07 },
-      { min: 300000, max: 600000, rate: 0.11 },
-      { min: 600000, max: 1100000, rate: 0.15 },
-      { min: 1100000, max: 1600000, rate: 0.19 },
-      { min: 1600000, max: 3200000, rate: 0.21 },
-      { min: 3200000, max: Infinity, rate: 0.24 }
-    ];
-
-    for (const bracket of brackets) {
-      if (taxableIncome > bracket.min) {
-        const taxableAtThisBracket = Math.min(taxableIncome - bracket.min, bracket.max - bracket.min);
-        tax += taxableAtThisBracket * bracket.rate;
-      }
-    }
-
-    return tax;
+    const brackets = taxYear === 'new' ? NEW_PIT_BRACKETS : OLD_PIT_BRACKETS;
+    return calculateProgressiveTax(taxableIncome, brackets).total;
   };
 
   const income = parseFloat(currentIncome) || 0;
@@ -42,20 +30,16 @@ const TaxSavingsCalculator = () => {
   const insurance = Math.min(parseFloat(lifeInsurance) || 0, income * 0.15); // Max 15%
 
   const totalDeductions = pension + nhf + nhis + insurance;
-  const taxableIncomeWithoutDeductions = Math.max(0, income - 200000); // Basic relief
-  const taxableIncomeWithDeductions = Math.max(0, income - 200000 - totalDeductions);
+  const baseAllowance = taxYear === 'new' ? 0 : 200000;
+  const taxableIncomeWithoutDeductions = Math.max(0, income - baseAllowance);
+  const taxableIncomeWithDeductions = Math.max(0, income - baseAllowance - totalDeductions);
 
   const taxWithoutDeductions = calculateTax(taxableIncomeWithoutDeductions);
   const taxWithDeductions = calculateTax(taxableIncomeWithDeductions);
   const savings = taxWithoutDeductions - taxWithDeductions;
   const savingsPercentage = taxWithoutDeductions > 0 ? (savings / taxWithoutDeductions) * 100 : 0;
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-NG', {
-      style: 'currency',
-      currency: 'NGN'
-    }).format(amount);
-  };
+  const topMarginalRate = useMemo(() => (taxYear === 'new' ? 0.25 : 0.24), [taxYear]);
 
   const strategies = [
     {
@@ -94,6 +78,40 @@ const TaxSavingsCalculator = () => {
     }
   };
 
+  const handleDownloadPdf = () => {
+    const sections = [
+      {
+        heading: 'Key Figures',
+        lines: [
+          `Tax rules: ${taxYear === 'new' ? '2026 onwards' : '2025 and earlier'}`,
+          `Gross income: ${formatCurrency(income)}`,
+          taxYear === 'old' ? `Basic relief: ${formatCurrency(baseAllowance)}` : 'Basic relief: Not applicable under new rules',
+          `Total deductions: ${formatCurrency(totalDeductions)}`,
+          `Tax (no deductions): ${formatCurrency(taxWithoutDeductions)}`,
+          `Tax (with deductions): ${formatCurrency(taxWithDeductions)}`,
+          `Annual savings: ${formatCurrency(savings)} (${savingsPercentage.toFixed(1)}%)`
+        ]
+      }
+    ];
+
+    sections.push({
+      heading: 'Deduction Limits',
+      lines: [
+        `Pension contributions capped at ${formatCurrency(income * 0.18)} (18% of income).`,
+        `NHF contributions capped at ${formatCurrency(income * 0.025)} (2.5% of income).`,
+        `NHIS contributions capped at ${formatCurrency(income * 0.05)} (5% of income).`,
+        `Life insurance premiums capped at ${formatCurrency(income * 0.15)} (15% of income).`
+      ]
+    });
+
+    downloadTaxSummaryPdf({
+      title: 'Tax Savings Summary',
+      subtitle: 'Comparison of deductions and effective tax savings',
+      sections,
+      filename: 'tax-savings-summary.pdf'
+    });
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="text-center">
@@ -120,6 +138,24 @@ const TaxSavingsCalculator = () => {
                 <CardDescription>Enter your income and current deductions</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="taxYear">Tax Year Rules</Label>
+                  <Select value={taxYear} onValueChange={(value) => setTaxYear(value as 'old' | 'new')}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select tax year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="new">2026 onwards (Reform Acts)</SelectItem>
+                      <SelectItem value="old">2025 and earlier</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {taxYear === 'new'
+                      ? 'Applies ₦800,000 tax-free threshold with 15%-25% bands and withholding offsets.'
+                      : 'Uses legacy CRA of ₦200,000 and 7%-24% bands for earlier filings.'}
+                  </p>
+                </div>
+
                 <div>
                   <Label htmlFor="income">Annual Income (₦)</Label>
                   <Input
@@ -191,10 +227,15 @@ const TaxSavingsCalculator = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <PiggyBank className="h-5 w-5" />
-                  Your Tax Savings
-                </CardTitle>
+                <div className="flex items-start justify-between gap-3">
+                  <CardTitle className="flex items-center gap-2">
+                    <PiggyBank className="h-5 w-5" />
+                    Your Tax Savings
+                  </CardTitle>
+                  <Button type="button" variant="outline" size="sm" onClick={handleDownloadPdf}>
+                    Download PDF
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -225,10 +266,12 @@ const TaxSavingsCalculator = () => {
                       <span>Gross Income:</span>
                       <span>{formatCurrency(income)}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Basic Relief:</span>
-                      <span>{formatCurrency(200000)}</span>
-                    </div>
+                    {baseAllowance > 0 && (
+                      <div className="flex justify-between">
+                        <span>Basic Relief:</span>
+                        <span>{formatCurrency(baseAllowance)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span>Total Deductions:</span>
                       <span>{formatCurrency(totalDeductions)}</span>
@@ -266,7 +309,7 @@ const TaxSavingsCalculator = () => {
                     {strategy.potential > 0 && (
                       <div className="p-3 rounded bg-primary/5 border border-primary/20">
                         <p className="text-sm text-primary">
-                          Potential additional tax savings: {formatCurrency(strategy.potential * 0.21)}
+                          Potential additional tax savings: {formatCurrency(strategy.potential * topMarginalRate)}
                         </p>
                       </div>
                     )}
@@ -299,7 +342,7 @@ const TaxSavingsCalculator = () => {
                     <tr className="border-b">
                       <td className="p-2 font-medium">No Deductions</td>
                       <td className="text-right p-2">{formatCurrency(0)}</td>
-                      <td className="text-right p-2">{formatCurrency(Math.max(0, income - 200000))}</td>
+                      <td className="text-right p-2">{formatCurrency(Math.max(0, income - baseAllowance))}</td>
                       <td className="text-right p-2">{formatCurrency(taxWithoutDeductions)}</td>
                       <td className="text-right p-2">-</td>
                     </tr>
@@ -313,10 +356,10 @@ const TaxSavingsCalculator = () => {
                     <tr className="border-b">
                       <td className="p-2 font-medium">Maximum Deductions</td>
                       <td className="text-right p-2">{formatCurrency(income * 0.375)}</td>
-                      <td className="text-right p-2">{formatCurrency(Math.max(0, income - 200000 - income * 0.375))}</td>
-                      <td className="text-right p-2">{formatCurrency(calculateTax(Math.max(0, income - 200000 - income * 0.375)))}</td>
+                      <td className="text-right p-2">{formatCurrency(Math.max(0, income - baseAllowance - income * 0.375))}</td>
+                      <td className="text-right p-2">{formatCurrency(calculateTax(Math.max(0, income - baseAllowance - income * 0.375)))}</td>
                       <td className="text-right p-2 text-primary">
-                        {formatCurrency(taxWithoutDeductions - calculateTax(Math.max(0, income - 200000 - income * 0.375)))}
+                        {formatCurrency(taxWithoutDeductions - calculateTax(Math.max(0, income - baseAllowance - income * 0.375)))}
                       </td>
                     </tr>
                   </tbody>

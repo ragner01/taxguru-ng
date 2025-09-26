@@ -29,7 +29,7 @@ const FAQ = () => {
     personal: [
       {
         question: "What is the Consolidated Relief Allowance?",
-        answer: "The CRA is ₦200,000 annually and is automatically deducted from your income before calculating tax. It's the minimum relief allowance for all taxpayers."
+        answer: "The CRA applied to 2025 and earlier filings (minimum ₦200,000). From 1 January 2026 it is replaced by a ₦800,000 tax-free threshold, targeted rent relief, and direct withholding tax credits."
       },
       {
         question: "Can I claim deductions for my children's education?",
@@ -55,7 +55,7 @@ const FAQ = () => {
       },
       {
         question: "How do I calculate company income tax?",
-        answer: "Calculate gross profit (revenue - cost of sales), subtract allowable expenses, then apply the appropriate rate: 0% for small companies, 20% for medium, 30% for large."
+        answer: "Compute assessable profit, deduct capital allowances, then apply the new rules: compliant small companies (≤ ₦100m turnover and assets ≤ ₦250m) are exempt, medium-sized firms pay 30% CIT plus the 4% development levy, while large groups (≥ ₦50bn turnover or €750m+ MNE) must achieve at least a 15% effective tax rate."
       },
       {
         question: "What records must I keep for tax purposes?",

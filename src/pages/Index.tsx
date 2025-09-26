@@ -43,20 +43,20 @@ const Index = () => {
                 <h3 className="text-xl font-semibold">Personal Income Tax</h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Progressive tax rates from 7% to 24% based on annual income. Includes relief allowances and state-specific considerations.
+                Progressive tax rates now run from 0% to 25% with a ₦800,000 tax-free threshold, rent relief (20% capped at ₦500k), and withholding tax offsets.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>First ₦300,000:</span>
-                  <span className="font-semibold">7%</span>
+                  <span>₦0 - ₦800,000:</span>
+                  <span className="font-semibold">0%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>₦300,001 - ₦600,000:</span>
-                  <span className="font-semibold">11%</span>
+                  <span>₦800,001 - ₦3,000,000:</span>
+                  <span className="font-semibold">15%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Above ₦3,200,000:</span>
-                  <span className="font-semibold">24%</span>
+                  <span>Above ₦50,000,000:</span>
+                  <span className="font-semibold">25%</span>
                 </div>
               </div>
             </div>
@@ -101,20 +101,20 @@ const Index = () => {
                 <h3 className="text-xl font-semibold">Company Income Tax</h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Corporate tax rates vary by company size and type. SMEs enjoy lower rates to encourage business growth.
+                Corporate tax obligations include a 4% development levy and a 15% minimum effective tax rate for very large groups, while compliant small companies remain exempt.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>SMEs (₦25M - ₦100M):</span>
-                  <span className="font-semibold">20%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Large Companies:</span>
-                  <span className="font-semibold">30%</span>
-                </div>
-                <div className="flex justify-between">
                   <span>Small Companies:</span>
-                  <span className="font-semibold">0%</span>
+                  <span className="font-semibold">0% (CIT, CGT & levy)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Medium Companies:</span>
+                  <span className="font-semibold">30% + 4% levy</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Large Groups:</span>
+                  <span className="font-semibold">≥15% ETR + levy</span>
                 </div>
               </div>
             </div>
@@ -130,20 +130,20 @@ const Index = () => {
                 <h3 className="text-xl font-semibold">Capital Gains Tax</h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Tax on profits from the sale of assets. Standard rate applies to most capital gains.
+                From January 2026, individuals report gains through the personal income tax bands while companies face a higher CGT burden on disposals and offshore transfers.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Standard Rate:</span>
-                  <span className="font-semibold">10%</span>
+                  <span>Individuals (2026+):</span>
+                  <span className="font-semibold">0%–25% PIT bands</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Exemptions:</span>
-                  <span className="font-semibold">Available</span>
+                  <span>Legacy filings (≤2025):</span>
+                  <span className="font-semibold">10% flat CGT</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Threshold:</span>
-                  <span className="font-semibold">₦10,000</span>
+                  <span>Companies:</span>
+                  <span className="font-semibold">30% CGT + 4% levy</span>
                 </div>
               </div>
             </div>
@@ -159,20 +159,20 @@ const Index = () => {
                 <h3 className="text-xl font-semibold">Withholding Tax</h3>
               </div>
               <p className="text-muted-foreground mb-4">
-                Tax deducted at source for various payments including rent, dividends, and professional services.
+                Withholding tax credits still apply at source, now emphasising faster monthly reconciliations and offsets against the updated PIT and CIT liabilities.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Rent:</span>
+                  <span>Resident services:</span>
+                  <span className="font-semibold">5%–10%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Non-resident payments:</span>
                   <span className="font-semibold">10%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Dividends:</span>
-                  <span className="font-semibold">10%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Professional Services:</span>
-                  <span className="font-semibold">5%</span>
+                  <span>Digital/aviation levy:</span>
+                  <span className="font-semibold">2%–4% on gross</span>
                 </div>
               </div>
             </div>
@@ -209,8 +209,7 @@ const Index = () => {
 
           <div className="text-center mt-12">
             <p className="text-muted-foreground mb-6">
-              All rates are current as of 2024 and comply with FIRS regulations. 
-              For the most up-to-date information, please consult the official FIRS website.
+              Rates reflect the 2025 Tax Reform Acts (effective 1 January 2026). For granular thresholds or sector-specific reliefs, review the latest circulars on the official FIRS website.
             </p>
             <Button 
               size="lg" 

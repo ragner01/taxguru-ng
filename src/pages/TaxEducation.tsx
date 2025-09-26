@@ -61,24 +61,24 @@ const TaxEducation = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-                  <h4 className="font-semibold text-orange-800 mb-2">Recent Tax Law Changes (2024)</h4>
+                  <h4 className="font-semibold text-orange-800 mb-2">2025 Tax Reform Acts (Effective 1 Jan 2026)</h4>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <h5 className="font-medium text-orange-700">Key Updates:</h5>
+                      <h5 className="font-medium text-orange-700">Headline Changes:</h5>
                       <ul className="text-sm text-orange-700 space-y-1">
-                        <li>• Finance Act 2024 implementation</li>
-                        <li>• Enhanced digital tax administration</li>
-                        <li>• New minimum wage tax considerations</li>
-                        <li>• Stricter compliance requirements</li>
+                        <li>• ₦800k personal tax-free threshold with rent relief (20% capped ₦500k)</li>
+                        <li>• 4% unified development levy replacing multiple corporate levies</li>
+                        <li>• 15% minimum effective tax rate for large groups (≥ ₦50bn / €750m MNEs)</li>
+                        <li>• Capital gains for individuals now taxed via PIT bands; companies at 30%</li>
                       </ul>
                     </div>
                     <div className="space-y-2">
-                      <h5 className="font-medium text-orange-700">Important Deadlines:</h5>
+                      <h5 className="font-medium text-orange-700">Operational Requirements:</h5>
                       <ul className="text-sm text-orange-700 space-y-1">
-                        <li>• Mandatory e-filing for all taxpayers</li>
-                        <li>• Enhanced penalty structure</li>
-                        <li>• New reporting requirements</li>
-                        <li>• Digital invoice requirements</li>
+                        <li>• Mandatory e-invoicing and e-filing for all taxpayers</li>
+                        <li>• Monthly returns for digital, aviation, and shipping non-resident companies (2%–4% levy)</li>
+                        <li>• Agribusiness tax holiday (first 5 years) for registered entities</li>
+                        <li>• Enhanced reconciliation of withholding credits against PIT/CIT</li>
                       </ul>
                     </div>
                   </div>
@@ -149,6 +149,39 @@ const TaxEducation = () => {
                   </div>
                 </div>
 
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                  <h4 className="font-semibold text-primary mb-2">Interactive Reform Tools</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Explore the new calculators for 2026 filings — estimate penalties, assess digital services levies, and confirm agribusiness holiday eligibility in a few clicks.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = '/?tool=penalties#calculators';
+                      }}
+                    >
+                      Penalty Estimator
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = '/?tool=digital-services#calculators';
+                      }}
+                    >
+                      Digital Services Levy
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = '/?tool=agribusiness#calculators';
+                      }}
+                    >
+                      Agribusiness Holiday
+                    </Button>
+                  </div>
+                </div>
+
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <div className="flex items-start gap-3">
                     <AlertTriangle className="h-5 w-5 text-blue-600 mt-1" />
@@ -180,47 +213,47 @@ const TaxEducation = () => {
               <CardContent className="space-y-6">
                 <Accordion type="single" collapsible className="w-full">
                   <AccordionItem value="tax-brackets">
-                    <AccordionTrigger>2024 Tax Brackets & Rates</AccordionTrigger>
+                    <AccordionTrigger>2026+ Personal Tax Bands & Thresholds</AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-4">
                         <div className="grid gap-3">
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>First ₦300,000</span>
-                            <Badge variant="outline">7%</Badge>
+                            <span>₦0 - ₦800,000</span>
+                            <Badge variant="outline">0%</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>₦300,001 - ₦600,000</span>
-                            <Badge variant="outline">11%</Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>₦600,001 - ₦1,100,000</span>
+                            <span>₦800,001 - ₦3,000,000</span>
                             <Badge variant="outline">15%</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>₦1,100,001 - ₦1,600,000</span>
-                            <Badge variant="outline">19%</Badge>
+                            <span>₦3,000,001 - ₦12,000,000</span>
+                            <Badge variant="outline">18%</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>₦1,600,001 - ₦3,200,000</span>
+                            <span>₦12,000,001 - ₦25,000,000</span>
                             <Badge variant="outline">21%</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Above ₦3,200,000</span>
-                            <Badge variant="outline">24%</Badge>
+                            <span>₦25,000,001 - ₦50,000,000</span>
+                            <Badge variant="outline">23%</Badge>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
+                            <span>Above ₦50,000,000</span>
+                            <Badge variant="outline">25%</Badge>
                           </div>
                         </div>
                         
                         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-green-800 mb-2">2024 Updates</h4>
+                          <h4 className="font-semibold text-green-800 mb-2">Key Allowances (2026 onwards)</h4>
                           <ul className="text-sm text-green-700 space-y-1">
-                            <li>• Consolidated Relief Allowance increased to ₦200,000</li>
-                            <li>• New minimum wage considerations</li>
-                            <li>• Enhanced digital tax filing requirements</li>
-                            <li>• Stricter compliance monitoring</li>
+                            <li>• First ₦800,000 of chargeable income is exempt</li>
+                            <li>• Rent relief: 20% of annual rent capped at ₦500,000</li>
+                            <li>• Pension (≤18%), NHF (≤2.5%), NHIS (≤5%), life cover (≤15%) stay deductible</li>
+                            <li>• Withholding tax credits offset final PIT before payment</li>
                           </ul>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          These are progressive rates, meaning higher income is taxed at higher rates.
+                          Progressive bands apply to income after allowable deductions and reliefs. Legacy filings (≤2025) can still apply the CRA-based 7%–24% schedule.
                         </p>
                       </div>
                     </AccordionContent>
@@ -232,24 +265,32 @@ const TaxEducation = () => {
                       <div className="space-y-4">
                         <div className="grid gap-3">
                           <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
-                            <span>Consolidated Relief Allowance</span>
-                            <span className="font-semibold">₦200,000</span>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
                             <span>Pension Contributions</span>
-                            <span className="font-semibold">Up to 8% of salary</span>
+                            <span className="font-semibold">Up to 18% of income</span>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
                             <span>NHF Contributions</span>
                             <span className="font-semibold">2.5% of salary</span>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <span>NHIS / Health Insurance</span>
+                            <span className="font-semibold">Up to 5% of income</span>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
                             <span>Life Assurance Premium</span>
-                            <span className="font-semibold">Actual amount paid</span>
+                            <span className="font-semibold">Up to 15% of income</span>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <span>Rent Relief (New)</span>
+                            <span className="font-semibold">20% of rent (₦500k cap)</span>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <span>Withholding Tax Credit</span>
+                            <span className="font-semibold">Offset PIT liability</span>
                           </div>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          These deductions reduce your taxable income before applying tax rates.
+                          Apply deductions before the progressive bands. For historical filings (≤2025), the Consolidated Relief Allowance (₦200,000 + 20% of gross) still applies instead of rent relief.
                         </p>
                       </div>
                     </AccordionContent>
@@ -259,39 +300,40 @@ const TaxEducation = () => {
                     <AccordionTrigger>How to Calculate Personal Income Tax</AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-4">
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                            <span>Calculate Gross Income (salary + allowances + bonuses)</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                            <span>Subtract Consolidated Relief Allowance (₦200,000)</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                            <span>Subtract other allowable deductions (pension, NHF, etc.)</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                            <span>Apply progressive tax rates to the remaining amount</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">5</div>
-                            <span>Sum up all tax amounts from each bracket</span>
-                          </div>
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                          <span>Calculate Gross Income (salary + allowances + bonuses)</span>
                         </div>
-                        
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-blue-800 mb-2">Example Calculation</h4>
-                          <p className="text-sm text-blue-700">
-                            For ₦2,000,000 annual income:<br/>
-                            • Relief Allowance: ₦200,000<br/>
-                            • Taxable Income: ₦1,800,000<br/>
-                            • Tax: ₦300,000 × 7% + ₦300,000 × 11% + ₦500,000 × 15% + ₦500,000 × 19% + ₦200,000 × 21%<br/>
-                            • Total Tax: ₦21,000 + ₦33,000 + ₦75,000 + ₦95,000 + ₦42,000 = ₦266,000
-                          </p>
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                          <span>Subtract mandatory deductions (pension, NHF, NHIS, life assurance).</span>
                         </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                          <span>Apply rent relief (20% of annual rent capped at ₦500,000) for 2026+ filings.</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                          <span>Apply progressive 0%–25% PIT bands to the taxable balance.</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">5</div>
+                          <span>Subtract withholding tax credits and PAYE already remitted to determine net payable.</span>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 className="font-semibold text-blue-800 mb-2">Example Calculation</h4>
+                        <p className="text-sm text-blue-700">
+                            For ₦6,000,000 gross income with ₦600,000 rent:<br/>
+                            • Mandatory deductions (pension/NHF/NHIS): ₦600,000<br/>
+                            • Rent relief: min(20% of ₦600,000, ₦500,000) = ₦120,000<br/>
+                            • Taxable income: ₦6,000,000 - ₦600,000 - ₦120,000 = ₦5,280,000<br/>
+                            • Apply bands: ₦2.2m @15%, ₦2.28m @18%, ₦800k @21%<br/>
+                            • Total PIT before credits ≈ ₦1,008,400; deduct WHT already paid to arrive at net liability
+                        </p>
+                      </div>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -333,13 +375,13 @@ const TaxEducation = () => {
                           </div>
                         </div>
                         
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-blue-800 mb-2">2024 VAT Updates</h4>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                          <h4 className="font-semibold text-blue-800 mb-2">2025 VAT Updates</h4>
                           <ul className="text-sm text-blue-700 space-y-1">
-                            <li>• Mandatory digital invoicing for businesses</li>
-                            <li>• Enhanced VAT registration requirements</li>
-                            <li>• Stricter penalties for non-compliance</li>
-                            <li>• New categories of exempt items</li>
+                            <li>• Mandatory e-invoicing through FIRS-approved systems</li>
+                            <li>• Input VAT on services and capex now fully creditable</li>
+                            <li>• Monthly digital filing and payment timelines tightened</li>
+                            <li>• Expanded zero-rated list for basic food, books, medical supplies</li>
                           </ul>
                         </div>
                         
@@ -381,28 +423,28 @@ const TaxEducation = () => {
                     <AccordionTrigger>Company Income Tax</AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-4">
-                        <div className="grid gap-3">
+                      <div className="grid gap-3">
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Small Companies (≤₦25M turnover)</span>
-                            <Badge variant="outline">0%</Badge>
+                            <span>Small Companies (≤ ₦100m turnover & assets ≤ ₦250m)</span>
+                            <Badge variant="outline">0% CIT / CGT / levy</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Medium Companies (₦25M-₦100M)</span>
-                            <Badge variant="outline">20%</Badge>
+                            <span>Medium Companies (₦100m - &lt; ₦50bn)</span>
+                            <Badge variant="outline">30% CIT + 4% levy</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Large Companies (&gt;₦100M)</span>
-                            <Badge variant="outline">30%</Badge>
+                            <span>Large Groups (≥ ₦50bn or part of €750m+ MNE)</span>
+                            <Badge variant="outline">≥15% effective rate</Badge>
                           </div>
                         </div>
                         
                         <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                          <h4 className="font-semibold text-purple-800 mb-2">2024 Corporate Tax Updates</h4>
+                          <h4 className="font-semibold text-purple-800 mb-2">2025 Corporate Tax Updates</h4>
                           <ul className="text-sm text-purple-700 space-y-1">
-                            <li>• Enhanced tax incentives for SMEs</li>
-                            <li>• New digital economy tax provisions</li>
-                            <li>• Stricter transfer pricing regulations</li>
-                            <li>• Mandatory e-filing for all companies</li>
+                            <li>• Unified 4% development levy replaces TET, NASENI, IT and PTF levies</li>
+                            <li>• 15% minimum effective tax rate enforced for large groups</li>
+                            <li>• Agribusiness tax holiday (first 5 years) for registered entities</li>
+                            <li>• Capital gains by companies taxed at 30% (including indirect offshore transfers)</li>
                           </ul>
                         </div>
 
@@ -435,40 +477,32 @@ const TaxEducation = () => {
                     <AccordionTrigger>Withholding Tax</AccordionTrigger>
                     <AccordionContent>
                       <div className="space-y-4">
-                        <div className="grid gap-3">
+                      <div className="grid gap-3">
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Rent (Individuals)</span>
+                            <span>Rent &amp; Dividends</span>
+                            <Badge variant="outline">10% (resident &amp; non-resident)</Badge>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
+                            <span>Professional / Technical Services</span>
+                            <Badge variant="outline">5% (resident) / 10% (non-resident)</Badge>
+                          </div>
+                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
+                            <span>Interest &amp; Royalties</span>
                             <Badge variant="outline">10%</Badge>
                           </div>
                           <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Rent (Companies)</span>
-                            <Badge variant="outline">10%</Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Professional Services</span>
-                            <Badge variant="outline">5%</Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Dividends</span>
-                            <Badge variant="outline">10%</Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Interest</span>
-                            <Badge variant="outline">10%</Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-3 bg-secondary/50 rounded-lg">
-                            <span>Royalties</span>
-                            <Badge variant="outline">10%</Badge>
+                            <span>Digital, Aviation &amp; Shipping (gross levy)</span>
+                            <Badge variant="outline">2%–4%</Badge>
                           </div>
                         </div>
 
                         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                           <h4 className="font-semibold text-yellow-800 mb-2">Important Notes</h4>
                           <ul className="text-sm text-yellow-700 space-y-1">
-                            <li>• Withholding tax is deducted at source</li>
-                            <li>• It's a final tax for some payments</li>
-                            <li>• For others, it's a credit against final tax liability</li>
-                            <li>• Must be remitted to FIRS within 30 days</li>
+                            <li>• Deduct at source and remit within 21 days (monthly digital filing encouraged)</li>
+                            <li>• Counts as a credit against final PIT/CIT liabilities under the new regime</li>
+                            <li>• Certain passive income remains final tax for individuals</li>
+                            <li>• Retain credit notes to offset future assessments</li>
                           </ul>
                         </div>
                       </div>
@@ -506,11 +540,11 @@ const TaxEducation = () => {
                       </div>
                       <div className="p-3 bg-secondary/50 rounded-lg">
                         <h4 className="font-medium">VAT Returns</h4>
-                        <p className="text-sm text-muted-foreground">21st of following month</p>
+                        <p className="text-sm text-muted-foreground">21st of following month (e-filing)</p>
                       </div>
                       <div className="p-3 bg-secondary/50 rounded-lg">
                         <h4 className="font-medium">Withholding Tax</h4>
-                        <p className="text-sm text-muted-foreground">30 days after deduction</p>
+                        <p className="text-sm text-muted-foreground">21 days after deduction (monthly schedule)</p>
                       </div>
                     </div>
                   </div>
@@ -550,15 +584,15 @@ const TaxEducation = () => {
                         <li>• Maintain receipts for all deductions</li>
                       </ul>
                     </div>
-                    <div className="space-y-2">
-                      <h5 className="font-medium">For Businesses:</h5>
-                      <ul className="text-sm text-blue-700 space-y-1">
-                        <li>• Register for VAT if turnover exceeds ₦25M</li>
-                        <li>• Issue proper tax invoices</li>
-                        <li>• Maintain separate accounts for VAT</li>
-                        <li>• File monthly VAT returns</li>
-                      </ul>
-                    </div>
+                      <div className="space-y-2">
+                        <h5 className="font-medium">For Businesses:</h5>
+                        <ul className="text-sm text-blue-700 space-y-1">
+                        <li>• Register for VAT once turnover exceeds ₦25m and activate FIRS e-invoicing</li>
+                        <li>• Capture withholding and development levy obligations in monthly reconciliations</li>
+                        <li>• Maintain separate ledgers for VAT, WHT, and development levy remittances</li>
+                        <li>• File VAT/WHT returns electronically by the 21st of the following month</li>
+                        </ul>
+                      </div>
                   </div>
                 </div>
               </CardContent>

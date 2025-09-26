@@ -9,21 +9,35 @@ const TaxRatesLookup = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const personalIncomeTaxRates = [
-    { range: '₦0 - ₦300,000', rate: '7%', annualTax: '₦0 - ₦21,000' },
-    { range: '₦300,001 - ₦600,000', rate: '11%', annualTax: '₦21,001 - ₦54,000' },
-    { range: '₦600,001 - ₦1,100,000', rate: '15%', annualTax: '₦54,001 - ₦129,000' },
-    { range: '₦1,100,001 - ₦1,600,000', rate: '19%', annualTax: '₦129,001 - ₦224,000' },
-    { range: '₦1,600,001 - ₦3,200,000', rate: '21%', annualTax: '₦224,001 - ₦560,000' },
-    { range: 'Above ₦3,200,000', rate: '24%', annualTax: 'Above ₦560,000' }
+    { range: '₦0 - ₦800,000', rate: '0%', annualTax: '₦0' },
+    { range: '₦800,001 - ₦3,000,000', rate: '15%', annualTax: 'Up to ₦330,000' },
+    { range: '₦3,000,001 - ₦12,000,000', rate: '18%', annualTax: 'Up to ₦1,620,000' },
+    { range: '₦12,000,001 - ₦25,000,000', rate: '21%', annualTax: 'Up to ₦2,730,000' },
+    { range: '₦25,000,001 - ₦50,000,000', rate: '23%', annualTax: 'Up to ₦5,750,000' },
+    { range: 'Above ₦50,000,000', rate: '25%', annualTax: '25% of balance' }
   ];
 
   const companyIncomeTaxRates = [
-    { category: 'Large Companies', rate: '30%', description: 'Companies with turnover above ₦100 million' },
-    { category: 'Medium Companies', rate: '20%', description: 'Companies with turnover ₦25-100 million' },
-    { category: 'Small Companies', rate: '0%', description: 'Companies with turnover below ₦25 million' },
-    { category: 'Manufacturing Companies', rate: '20%', description: 'Companies in manufacturing sector' },
-    { category: 'Agricultural Companies', rate: '15%', description: 'Companies in agricultural production' },
-    { category: 'Solid Minerals Companies', rate: '20%', description: 'Companies in solid minerals exploration' }
+    {
+      category: 'Large Groups (≥ ₦50bn turnover or €750m+ MNE)',
+      rate: '≥15% ETR',
+      description: 'Subject to a minimum 15% effective tax rate plus the 4% development levy.'
+    },
+    {
+      category: 'Medium Companies (₦100m - < ₦50bn turnover)',
+      rate: '30%',
+      description: 'Standard corporate income tax rate; add 4% development levy on assessable profits.'
+    },
+    {
+      category: 'Small Companies (≤ ₦100m turnover & assets ≤ ₦250m)',
+      rate: '0%',
+      description: 'Exempt from corporate income tax, capital gains tax, and the development levy.'
+    },
+    {
+      category: 'Agribusiness Start-ups',
+      rate: '0%',
+      description: 'Enjoy a 5-year tax holiday once registered under the agribusiness incentive.'
+    }
   ];
 
   const vatRates = [
@@ -45,22 +59,21 @@ const TaxRatesLookup = () => {
   ];
 
   const otherTaxes = [
-    { tax: 'Capital Gains Tax', rate: '10%', description: 'On disposal of chargeable assets' },
-    { tax: 'Stamp Duty', rate: '0.75%', description: 'On share transfers and other instruments' },
-    { tax: 'Education Tax', rate: '2%', description: 'On assessable profits of companies' },
+    { tax: 'Capital Gains Tax (Companies)', rate: '30%', description: 'Applies to company disposals and indirect offshore transfers from 2026.' },
+    { tax: 'Development Levy', rate: '4%', description: 'Replaces multiple levies; charged on assessable profits (small companies exempt).' },
     { tax: 'National Housing Fund', rate: '2.5%', description: 'Employee contribution to housing fund' },
-    { tax: 'NHIS Contribution', rate: '1.75%', description: 'Employee contribution to health insurance' },
-    { tax: 'Pension Contribution', rate: '8%', description: 'Employee contribution to pension' },
-    { tax: 'Information Technology Levy', rate: '1%', description: 'On assessable profits above ₦100 million' }
+    { tax: 'NHIA Contribution', rate: '1.75%', description: 'Employee contribution to health insurance' },
+    { tax: 'Pension Contribution', rate: '8%', description: 'Employee contribution to pension schemes' },
+    { tax: 'Non-Resident Digital Services Levy', rate: '2% - 4%', description: 'Applied on Nigerian earnings of shipping, aviation, and digital platforms.' }
   ];
 
   const payeTaxRates = [
-    { range: '₦0 - ₦300,000', rate: '7%', description: 'First ₦300,000 of annual income' },
-    { range: '₦300,001 - ₦600,000', rate: '11%', description: 'Next ₦300,000 of annual income' },
-    { range: '₦600,001 - ₦1,100,000', rate: '15%', description: 'Next ₦500,000 of annual income' },
-    { range: '₦1,100,001 - ₦1,600,000', rate: '19%', description: 'Next ₦500,000 of annual income' },
-    { range: '₦1,600,001 - ₦3,200,000', rate: '21%', description: 'Next ₦1,600,000 of annual income' },
-    { range: 'Above ₦3,200,000', rate: '24%', description: 'Income above ₦3,200,000' }
+    { range: '₦0 - ₦800,000', rate: '0%', description: 'Tax-free allowance under the 2025 reforms' },
+    { range: '₦800,001 - ₦3,000,000', rate: '15%', description: 'Next ₦2.2 million of annual income' },
+    { range: '₦3,000,001 - ₦12,000,000', rate: '18%', description: 'Next ₦9 million of annual income' },
+    { range: '₦12,000,001 - ₦25,000,000', rate: '21%', description: 'Next ₦13 million of annual income' },
+    { range: '₦25,000,001 - ₦50,000,000', rate: '23%', description: 'Next ₦25 million of annual income' },
+    { range: 'Above ₦50,000,000', rate: '25%', description: 'Income above ₦50 million' }
   ];
 
   const filterData = (data: any[], searchTerm: string) => {
@@ -112,9 +125,9 @@ const TaxRatesLookup = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5" />
-                Personal Income Tax Rates (2025)
+                Personal Income Tax Rates (2026 onwards)
               </CardTitle>
-              <CardDescription>Progressive tax rates for individual income</CardDescription>
+              <CardDescription>Progressive tax bands under the Nigeria Tax Act reforms</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -141,7 +154,7 @@ const TaxRatesLookup = () => {
               </div>
               <div className="mt-4 p-4 bg-muted/50 rounded">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> Basic relief allowance of ₦200,000 plus 20% of gross income (up to ₦200,000) is deductible.
+                  <strong>Note:</strong> The first ₦800,000 of income is tax-free, rent relief is capped at ₦500,000, and withholding tax credits offset the computed liability. Use the calculator toggle for legacy (≤2025) rates.
                 </p>
               </div>
             </CardContent>

@@ -56,15 +56,19 @@ const FIRSRegulations = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Progressive tax rates from 7% to 24%</span>
+                        <span>0%–25% progressive bands with a ₦800k tax-free threshold (2026 onwards)</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Consolidated Relief Allowance provisions</span>
+                        <span>Rent relief (20% capped ₦500k) and withholding tax credit integration</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>State and federal tax administration</span>
+                        <span>Legacy CRA applies for 2025 and earlier filings</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <span>State and federal coordination for PAYE and direct assessments</span>
                       </div>
                     </div>
                   </div>
@@ -77,15 +81,19 @@ const FIRSRegulations = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Corporate tax rates by company size</span>
+                        <span>Small companies (≤ ₦100m turnover &amp; assets ≤ ₦250m) remain fully exempt</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Transfer pricing regulations</span>
+                        <span>Unified 4% development levy replaces TET, NASENI, IT, and PTF levies</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Tax incentives and exemptions</span>
+                        <span>Large groups must achieve a minimum 15% effective tax rate with transfer pricing oversight</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <span>Agribusiness incentive: 5-year holiday for qualifying registered entities</span>
                       </div>
                     </div>
                   </div>
@@ -98,15 +106,19 @@ const FIRSRegulations = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>7.5% standard rate</span>
+                        <span>7.5% standard rate maintained with zero-rated essentials</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Zero-rated and exempt items</span>
+                        <span>Zero-rated vs exempt list retained under the reform acts</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>Digital invoicing requirements</span>
+                        <span>Full input VAT credit permitted on services and capex from 2026</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <span>Mandatory e-invoicing and monthly digital returns via FIRS portals</span>
                       </div>
                     </div>
                   </div>

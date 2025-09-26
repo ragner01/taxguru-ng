@@ -5,12 +5,13 @@ A comprehensive Nigerian tax calculation platform built with React, TypeScript, 
 ## 🚀 Features
 
 ### Tax Calculators
-- **Personal Income Tax Calculator** - Progressive tax rates (7%-24%)
-- **Value Added Tax (VAT) Calculator** - 7.5% standard rate with exemptions
-- **Company Income Tax Calculator** - SME and large company rates
-- **Capital Gains Tax Calculator** - 10% standard rate
-- **Withholding Tax Calculator** - Various payment types
-- **Stamp Duty Calculator** - Document-based calculations
+- **Personal Income Tax Calculator** - Dual-mode calculator for legacy CRA rules and the 2026+ ₦800k tax-free threshold with rent relief and WHT credits
+- **Value Added Tax (VAT) Calculator** - 7.5% standard rate with zero-rated/exempt mapping and input VAT credit guidance
+- **Company Income Tax Calculator** - Toggle between legacy and reform rules with 4% development levy and 15% ETR guardrails
+- **Capital Gains Tax Calculator** - Legacy 10% CGT engine with 2026+ PIT band transition messaging
+- **Penalty & Interest Estimator** - Late filing and payment penalties across PIT, CIT, VAT, and WHT (10% + 5% monthly interest)
+- **Digital Services Levy Calculator** - 2%–4% levy coverage for non-resident digital, aviation, and shipping operators
+- **Agribusiness Holiday Checker** - Eligibility scoring and action list for the reform-era 5-year agribusiness exemption
 
 ### Educational Resources
 - **Comprehensive Tax Education** - Complete guide to Nigerian tax laws
@@ -20,11 +21,11 @@ A comprehensive Nigerian tax calculation platform built with React, TypeScript, 
 - **Contact Information** - Direct support channels
 
 ### Key Features
-- ✅ **FIRS Compliant** - Based on current Nigerian tax laws
-- ✅ **Real-time Calculations** - Instant results with detailed breakdowns
+- ✅ **FIRS Compliant** - Updated for the 2025 Tax Reform Acts with legacy mode fallbacks
+- ✅ **Real-time Calculations** - Instant results with detailed band-by-band breakdowns
+- ✅ **PDF Exports** - Download ready-to-share summaries for every calculator
 - ✅ **Mobile Responsive** - Works on all devices
-- ✅ **Modern UI/UX** - Beautiful, intuitive interface
-- ✅ **Educational Content** - Learn about Nigerian taxes
+- ✅ **Educational Content** - Learn about Nigerian taxes with reform highlights
 - ✅ **Privacy Focused** - No data storage, calculations done locally
 
 ## 🛠️ Technology Stack
@@ -106,15 +107,17 @@ taxguru-ng/
 2. Set build command: `npm run build`
 3. Set publish directory: `dist`
 
-## 📊 Tax Rates (2024)
+## 📊 Tax Rates (2026 Reform Acts)
 
 ### Personal Income Tax
-- First ₦300,000: 7%
-- ₦300,001 - ₦600,000: 11%
-- ₦600,001 - ₦1,100,000: 15%
-- ₦1,100,001 - ₦1,600,000: 19%
-- ₦1,600,001 - ₦3,200,000: 21%
-- Above ₦3,200,000: 24%
+- ₦0 - ₦800,000: 0%
+- ₦800,001 - ₦3,000,000: 15%
+- ₦3,000,001 - ₦12,000,000: 18%
+- ₦12,000,001 - ₦25,000,000: 21%
+- ₦25,000,001 - ₦50,000,000: 23%
+- Above ₦50,000,000: 25%
+- Rent relief: 20% of annual rent capped at ₦500,000
+- Withholding tax credits offset the computed liability
 
 ### VAT
 - Standard Rate: 7.5%
@@ -122,9 +125,14 @@ taxguru-ng/
 - Exempt items: No VAT
 
 ### Company Income Tax
-- Small Companies (≤₦25M): 0%
-- Medium Companies (₦25M-₦100M): 20%
-- Large Companies (>₦100M): 30%
+- Small Companies (≤ ₦100M turnover & assets ≤ ₦250M): 0% CIT, CGT, and development levy
+- Medium Companies (₦100M - < ₦50bn turnover): 30% CIT + 4% development levy
+- Large Groups (≥ ₦50bn turnover or €750m+ MNE): Minimum 15% effective tax rate + 4% development levy
+- Agribusiness start-ups: 5-year tax holiday once registered
+
+### Capital Gains Tax
+- Individuals: Gains absorbed into personal income tax bands from 2026
+- Companies: 30% on chargeable gains and indirect offshore transfers (4% development levy still applies)
 
 ## 🤝 Contributing
 

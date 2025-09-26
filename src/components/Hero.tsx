@@ -1,10 +1,21 @@
 import { ArrowRight, Calculator, Shield, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/tax-hero.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
+
+  const openReformToolkit = () => {
+    navigate("/?tool=penalties#calculators");
+    setTimeout(() => {
+      const calculatorsSection = document.getElementById("calculators");
+      if (calculatorsSection) {
+        calculatorsSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
 
   return (
     <section className="relative py-20 overflow-hidden">
@@ -16,6 +27,19 @@ const Hero = () => {
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-4">
+              <div className="inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm">
+                <Badge variant="outline" className="uppercase tracking-wide">New</Badge>
+                <span className="text-muted-foreground">
+                  Reform Toolkit: Penalty Estimator, Digital Services Levy, Agribusiness Holiday
+                </span>
+                <button
+                  type="button"
+                  onClick={openReformToolkit}
+                  className="text-primary font-semibold hover:underline"
+                >
+                  Explore
+                </button>
+              </div>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                 Calculate Your 
                 <span className="text-gradient block">Nigerian Taxes</span>

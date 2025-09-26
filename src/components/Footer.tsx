@@ -8,10 +8,13 @@ const Footer = () => {
     {
       title: "Tax Calculators",
       links: [
-        { name: "Personal Income Tax", href: "/" },
-        { name: "Company Income Tax", href: "/" },
-        { name: "Value Added Tax", href: "/" },
-        { name: "Withholding Tax", href: "/" }
+        { name: "Personal Income Tax", href: "/#calculators" },
+        { name: "Company Income Tax", href: "/#calculators" },
+        { name: "Value Added Tax", href: "/#calculators" },
+        { name: "Capital Gains Tax", href: "/#calculators" },
+        { name: "Penalty Estimator", href: "/#calculators" },
+        { name: "Digital Services Levy", href: "/#calculators" },
+        { name: "Agribusiness Holiday", href: "/#calculators" }
       ]
     },
     {

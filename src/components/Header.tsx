@@ -5,6 +5,15 @@ import { useState } from "react";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const scrollToCalculators = () => {
+    const calculatorsSection = document.getElementById("calculators");
+    if (calculatorsSection) {
+      calculatorsSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/#calculators";
+    }
+  };
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Calculators", href: "#calculators" },
@@ -41,7 +50,10 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="bg-primary hover:bg-primary-glow text-primary-foreground">
+            <Button
+              className="bg-primary hover:bg-primary-glow text-primary-foreground"
+              onClick={scrollToCalculators}
+            >
               Start Calculating
             </Button>
           </div>
@@ -69,7 +81,13 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <Button className="bg-primary hover:bg-primary-glow text-primary-foreground mt-2">
+              <Button
+                className="bg-primary hover:bg-primary-glow text-primary-foreground mt-2"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  scrollToCalculators();
+                }}
+              >
                 Start Calculating
               </Button>
             </nav>

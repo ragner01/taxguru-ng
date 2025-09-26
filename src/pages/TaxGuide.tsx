@@ -47,6 +47,9 @@ const TaxGuide = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
+                <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
+                  The 2025 Tax Reform Acts introduce a ₦800,000 personal tax-free threshold, a unified 4% development levy, and mandatory e-invoicing from 1 January 2026. The guides below highlight the key changes to help you stay compliant.
+                </div>
                 <div className="prose prose-sm max-w-none">
                   <h3>What is Taxation?</h3>
                   <p>
@@ -64,6 +67,7 @@ const TaxGuide = () => {
                         <li>• Company Income Tax (CIT)</li>
                         <li>• Capital Gains Tax (CGT)</li>
                         <li>• Petroleum Profit Tax (PPT)</li>
+                        <li>• Development Levy (4% on assessable profits)</li>
                       </ul>
                     </div>
                     <div className="p-4 border rounded-lg">
@@ -98,19 +102,19 @@ const TaxGuide = () => {
                     <div className="space-y-2 text-sm text-blue-700">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>1. Determine Gross Income (salary + allowances + bonuses)</span>
+                        <span>1. Capture global income (salary, allowances, freelance, crypto, rent-free benefits).</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>2. Subtract Consolidated Relief Allowance (₦200,000)</span>
+                        <span>2. Deduct pension and NHF contributions, then claim rent relief (20% of rent capped at ₦500k).</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>3. Subtract other allowable deductions</span>
+                        <span>3. Apply the 0%–25% PIT bands (first ₦800k is tax-free).</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>4. Apply progressive tax rates to remaining amount</span>
+                        <span>4. Offset withholding tax credits to arrive at the net payable or refund.</span>
                       </div>
                     </div>
                   </div>
@@ -142,11 +146,15 @@ const TaxGuide = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>2. Subtract allowable expenses</span>
+                        <span>2. Subtract allowable expenses and capital allowances.</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4" />
-                        <span>3. Apply appropriate tax rate based on company size</span>
+                        <span>3. Apply the rate for your band (small firms exempt; medium 30%; large groups must meet a 15% minimum effective rate).</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        <span>4. Add the 4% development levy (replaces TET/NASENI/PTF/IT) unless exempt.</span>
                       </div>
                     </div>
                   </div>
