@@ -1,8 +1,4 @@
-const escapePdfText = (text: string) =>
-  text
-    .replace(/\\/g, "\\\\")
-    .replace(/\(/g, "\\(")
-    .replace(/\)/g, "\\)");
+import { jsPDF } from "jspdf";
 
 type PdfSection = {
   heading: string;
@@ -28,78 +24,95 @@ export const downloadTaxSummaryPdf = ({
   sections,
   filename = "tax-summary.pdf"
 }: DownloadPdfOptions) => {
-  const lines: PdfLine[] = [];
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const marginX = 56;
+  const textWidth = pageWidth - marginX * 2;
+  let cursorY = 80;
 
-  lines.push({ text: title, fontSize: 18 });
-  if (subtitle) {
-    lines.push({ text: subtitle, fontSize: 12, marginTop: 10 });
-  }
+  const goToNextLine = (amount = 18) => {
+    cursorY += amount;
+    if (cursorY > doc.internal.pageSize.getHeight() - 72) {
+      doc.addPage();
+      cursorY = 80;
+      drawHeader();
+    }
+  };
 
-  sections.forEach((section) => {
-    lines.push({ text: section.heading, fontSize: 14, marginTop: 18 });
+  const drawHeader = () => {
+    doc.setDrawColor(228, 232, 240);
+    doc.setLineWidth(1);
+    doc.line(marginX, cursorY, pageWidth - marginX, cursorY);
+    goToNextLine(24);
+  };
+
+  const addParagraph = (text: string, options?: { bullet?: boolean; fontSize?: number; lineHeight?: number }) => {
+    const { bullet = false, fontSize = 11, lineHeight = 16 } = options ?? {};
+    const contentX = bullet ? marginX + 14 : marginX;
+    const wrapped = doc.splitTextToSize(text, textWidth - (bullet ? 14 : 0));
+
+    wrapped.forEach((line, index) => {
+      if (index === 0 && bullet) {
+        doc.setFont("Helvetica", "bold");
+        doc.setFontSize(fontSize);
+        doc.text("•", marginX, cursorY);
+      }
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(fontSize);
+      doc.text(line, contentX, cursorY);
+      goToNextLine(lineHeight);
+    });
+  };
+
+  const printTitleBlock = () => {
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(22);
+    doc.text(title, marginX, cursorY);
+    goToNextLine(28);
+
+    if (subtitle) {
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(12);
+      const subtitleLines = doc.splitTextToSize(subtitle, textWidth);
+      subtitleLines.forEach((line) => {
+        doc.text(line, marginX, cursorY);
+        goToNextLine(16);
+      });
+    }
+
+    doc.setDrawColor(59, 130, 246);
+    doc.setLineWidth(2);
+    doc.line(marginX, cursorY, pageWidth - marginX, cursorY);
+    goToNextLine(26);
+  };
+
+  const addTimestamp = () => {
+    doc.setFont("Helvetica", "italic");
+    doc.setFontSize(10);
+    const generatedAt = new Intl.DateTimeFormat(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short"
+    }).format(new Date());
+    doc.text(`Generated: ${generatedAt}`, marginX, doc.internal.pageSize.getHeight() - 40);
+  };
+
+  printTitleBlock();
+
+  sections.forEach((section, sectionIndex) => {
+    if (sectionIndex > 0) {
+      goToNextLine(12);
+    }
+
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text(section.heading, marginX, cursorY);
+    goToNextLine(16);
+
     section.lines.forEach((line) => {
-      lines.push({ text: `- ${line}`, fontSize: 11, marginTop: 14 });
+      addParagraph(line, { bullet: true });
     });
   });
 
-  let currentY = 800;
-  const streamParts: string[] = ["BT"];
-
-  lines.forEach((line, index) => {
-    const margin = line.marginTop ?? line.fontSize + 6;
-    if (index === 0) {
-      currentY = Math.min(currentY, 800);
-    } else {
-      currentY -= margin;
-    }
-
-    if (currentY < 60) {
-      // Prevent overflow: clamp to minimum margin
-      currentY = 60;
-    }
-
-    streamParts.push(`/F1 ${line.fontSize} Tf`);
-    streamParts.push(`1 0 0 1 50 ${currentY.toFixed(2)} Tm`);
-    streamParts.push(`(${escapePdfText(line.text)}) Tj`);
-  });
-
-  streamParts.push("ET");
-  const stream = streamParts.join("\n");
-  const encoder = new TextEncoder();
-  const streamBytes = encoder.encode(stream);
-
-  const objects = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>",
-    `<< /Length ${streamBytes.length} >>\nstream\n${stream}\nendstream`,
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"
-  ];
-
-  let pdf = "%PDF-1.4\n";
-  const offsets: number[] = [0];
-
-  objects.forEach((content, index) => {
-    offsets.push(pdf.length);
-    pdf += `${index + 1} 0 obj\n${content}\nendobj\n`;
-  });
-
-  const xrefOffset = pdf.length;
-  pdf += `xref\n0 ${objects.length + 1}\n`;
-  pdf += "0000000000 65535 f \n";
-  for (let i = 1; i <= objects.length; i++) {
-    const offset = offsets[i];
-    pdf += `${offset.toString().padStart(10, "0")} 00000 n \n`;
-  }
-  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
-
-  const blob = new Blob([pdf], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  addTimestamp();
+  doc.save(filename);
 };
