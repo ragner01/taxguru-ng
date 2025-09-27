@@ -12,6 +12,7 @@ A comprehensive Nigerian tax calculation platform built with React, TypeScript, 
 - **Penalty & Interest Estimator** - Late filing and payment penalties across PIT, CIT, VAT, and WHT (10% + 5% monthly interest)
 - **Digital Services Levy Calculator** - 2%–4% levy coverage for non-resident digital, aviation, and shipping operators
 - **Agribusiness Holiday Checker** - Eligibility scoring and action list for the reform-era 5-year agribusiness exemption
+- **Account Activity Tracking** - Authenticated users can keep their logs and PDFs synced across devices
 
 ### Educational Resources
 - **Comprehensive Tax Education** - Complete guide to Nigerian tax laws
@@ -24,6 +25,7 @@ A comprehensive Nigerian tax calculation platform built with React, TypeScript, 
 - ✅ **FIRS Compliant** - Updated for the 2025 Tax Reform Acts with legacy mode fallbacks
 - ✅ **Real-time Calculations** - Instant results with detailed band-by-band breakdowns
 - ✅ **PDF Exports** - Download ready-to-share summaries for every calculator
+- ✅ **Secure Accounts** - Email, Google, and Apple sign-in with Supabase-managed sessions
 - ✅ **Mobile Responsive** - Works on all devices
 - ✅ **Educational Content** - Learn about Nigerian taxes with reform highlights
 - ✅ **Privacy Focused** - No data storage, calculations done locally
@@ -57,14 +59,32 @@ A comprehensive Nigerian tax calculation platform built with React, TypeScript, 
    bun install
    ```
 
-3. **Start development server**
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   Populate `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` with credentials from your Supabase project. Leave them blank if you do not want authentication.
+
+4. **(Optional) Prepare Supabase database**
+   ```sql
+   create table if not exists public.user_events (
+     id uuid primary key default uuid_generate_v4(),
+     user_id uuid references auth.users(id) on delete cascade,
+     action text not null,
+     payload jsonb default '{}'::jsonb,
+     occurred_at timestamptz not null default now()
+   );
+   ```
+   Ensure Google and Apple OAuth providers are enabled in Supabase Auth, and allow authenticated inserts on `user_events` when Row Level Security is enabled.
+
+5. **Start development server**
    ```bash
    npm run dev
    # or
    bun dev
    ```
 
-4. **Open in browser**
+6. **Open in browser**
    Navigate to `http://localhost:5173`
 
 ## 🏗️ Project Structure

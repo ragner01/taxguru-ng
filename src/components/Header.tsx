@@ -21,6 +21,7 @@ const Header = () => {
     { name: "Tax Calendar", href: "#tax-calendar" },
     { name: "Tax Savings", href: "#tax-savings" },
     { name: "Tax Rates", href: "#tax-rates" },
+    { name: "Login", href: "/login" }
   ];
 
   return (
@@ -49,7 +50,10 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" className="border-primary text-primary" asChild>
+              <a href="/login">Login</a>
+            </Button>
             <Button
               className="bg-primary hover:bg-primary-glow text-primary-foreground"
               onClick={scrollToCalculators}
@@ -81,6 +85,14 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
+              <Button
+                variant="outline"
+                className="border-primary text-primary"
+                asChild
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <a href="/login">Login</a>
+              </Button>
               <Button
                 className="bg-primary hover:bg-primary-glow text-primary-foreground mt-2"
                 onClick={() => {
