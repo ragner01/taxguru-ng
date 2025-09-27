@@ -6,8 +6,9 @@ type AuthContextValue = {
   session: Session | null;
   user: User | null;
   loading: boolean;
+  username: string | null;
   signInWithEmail: (email: string, password: string) => Promise<{ error?: string }>;
-  signUpWithEmail: (email: string, password: string) => Promise<{ error?: string }>;
+  signUpWithEmail: (email: string, password: string, username: string) => Promise<{ error?: string }>;
   signInWithProvider: (provider: "google" | "apple") => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   logEvent: (action: string, payload?: Record<string, unknown>) => Promise<void>;
@@ -19,6 +20,7 @@ const defaultValue: AuthContextValue = {
   session: null,
   user: null,
   loading: false,
+  username: null,
   signInWithEmail: async () => ({ error: "Auth not configured" }),
   signUpWithEmail: async () => ({ error: "Auth not configured" }),
   signInWithProvider: async () => ({ error: "Auth not configured" }),
@@ -57,21 +59,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const user = session?.user ?? null;
+    const username = user?.user_metadata?.username ?? null;
 
     return {
       session,
       user,
       loading,
+      username,
       signInWithEmail: async (email, password) => {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         return { error: error?.message };
       },
-      signUpWithEmail: async (email, password) => {
-        const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: undefined } });
+      signUpWithEmail: async (email, password, desiredUsername) => {
+        const redirectTo = typeof window !== "undefined" ? `${window.location.origin}/login?verified=1` : undefined;
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: redirectTo,
+            data: { username: desiredUsername }
+          }
+        });
         return { error: error?.message };
       },
       signInWithProvider: async (provider) => {
-        const { error } = await supabase.auth.signInWithOAuth({ provider });
+        const redirectTo = typeof window !== "undefined" ? `${window.location.origin}/login` : undefined;
+        const { error } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
         return { error: error?.message };
       },
       signOut: async () => {
@@ -99,4 +112,3 @@ export const useAuth = () => {
   }
   return context;
 };
-

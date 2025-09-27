@@ -9,13 +9,41 @@ import TaxRatesLookup from "@/components/TaxRatesLookup";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { username } = useAuth();
+  const friendlyName = username || "there";
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <section className="bg-primary/10 border-b border-primary/20">
+        <div className="container mx-auto flex flex-col gap-2 px-4 py-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-wide text-primary">Dashboard</p>
+            <h2 className="text-2xl font-semibold text-foreground">
+              Welcome back, <span className="text-primary">{friendlyName}</span> 👋
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Continue planning your tax obligations with the latest 2026 reform updates.
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            className="border-primary text-primary"
+            onClick={() => {
+              const calculatorsSection = document.getElementById("calculators");
+              if (calculatorsSection) {
+                calculatorsSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
+            Jump to calculators
+          </Button>
+        </div>
+      </section>
       <Hero />
       
       {/* Tax Information Section */}

@@ -13,6 +13,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import { AuthProvider } from "@/hooks/useAuth";
+import RequireAuth from "@/components/RequireAuth";
 
 const queryClient = new QueryClient();
 
@@ -24,14 +25,63 @@ const App = () => (
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/tax-education" element={<TaxEducation />} />
-            <Route path="/tax-guide" element={<TaxGuide />} />
-            <Route path="/firs-regulations" element={<FIRSRegulations />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route
+              path="/"
+              element={(
+                <RequireAuth>
+                  <Index />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/tax-education"
+              element={(
+                <RequireAuth>
+                  <TaxEducation />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/tax-guide"
+              element={(
+                <RequireAuth>
+                  <TaxGuide />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/firs-regulations"
+              element={(
+                <RequireAuth>
+                  <FIRSRegulations />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/faq"
+              element={(
+                <RequireAuth>
+                  <FAQ />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/contact"
+              element={(
+                <RequireAuth>
+                  <Contact />
+                </RequireAuth>
+              )}
+            />
+            <Route
+              path="/privacy-policy"
+              element={(
+                <RequireAuth>
+                  <PrivacyPolicy />
+                </RequireAuth>
+              )}
+            />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
